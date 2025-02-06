@@ -3,6 +3,7 @@ This is the main FastAPI application. Here is where the FastAPI app is executed.
 """
 
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 import logging
 from app.routes import chat, favorites, recommend
 
@@ -11,7 +12,8 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(level
 logging.info("Starting FastAPI app...")
 app = FastAPI(title="Cocktail Chatbot API")
 
-# Include routes
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
+
 logging.info("Including routes...")
 app.include_router(chat.router, prefix="/chat", tags=["Chat"])
 app.include_router(favorites.router, prefix="/favorites", tags=["Favorites"])
