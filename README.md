@@ -67,15 +67,25 @@ app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 # Project Structure
 📂 cocktail-chatbot/
+
 ├── 📂 app/
+
 │   ├── main.py        # FastAPI main app
+
 │   ├── database.py    # FAISS Vector DB
+
 │   ├── rag.py         # Retrieval-Augmented Generation logic
+
 │   ├── routes/        # API endpoints
+
 │   ├── static/        # Frontend HTML UI
+
 ├── 📂 data/          # Application data
+
 ├── 📂 tests/          # Unit tests
+
 ├── requirements.txt   # Python dependencies
+
 ├── README.md          # Project documentation
 
 # Contributing
