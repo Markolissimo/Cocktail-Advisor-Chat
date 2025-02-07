@@ -1,14 +1,14 @@
-"""
-This module contains the chat routes for the FastAPI app.
-It includes the /chat route which is used to interact with the chatbot.
-"""
-
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel
 from app.rag import generate_response
 
 router = APIRouter()
 
+class ChatRequest(BaseModel):
+    input_text: str
+    user_id: str
+
 @router.post("/")
-def chat(input_text: str, user_id: str):
-    response = generate_response(input_text, user_id)
+def chat(request: ChatRequest):
+    response = generate_response(request.input_text, request.user_id)
     return {"response": response}

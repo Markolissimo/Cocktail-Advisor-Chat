@@ -31,13 +31,23 @@ def generate_response(user_input: str, user_id: str) -> str:
     relevant_cocktails = retrieve_cocktails(user_input)
     user_favorites = vector_db.get_user_preferences(user_id)
 
-    context = f"User favorites: {user_favorites}\n\nRelevant cocktails:\n"
-    for cocktail in relevant_cocktails:
-        context += f"- {cocktail[1]['name']} (Ingredients: {cocktail[1]['ingredients']})\n"
+    response = ""
+    if "favorite ingredients" in user_input.lower(): # VERY NAIVE - NEEDS TO BE IMPROVED
+        response += "Here are your favorite ingredients:\n"
+        response += ", ".join(user_favorites) if user_favorites else "You haven't shared any favorite ingredients yet.\n"
+    
+    elif "similar to" in user_input.lower(): # VERY NAIVE - NEEDS TO BE IMPROVED
+        response += f"Looking for a cocktail similar to {user_input.split('similar to ')[-1]}:\n"
+    
+    else:
+        response += "Here are some recommended cocktails:\n"
+
+    for idx, cocktail in enumerate(relevant_cocktails[:5], start=1):
+        response += f"{idx}. {cocktail[1]['name']} 🥃 ({', '.join(cocktail[1]['ingredients'])})\n"
 
     messages = [
         HumanMessage(content=user_input),
-        AIMessage(content=context)
+        AIMessage(content=response)
     ]
     
     return llm(messages).content
