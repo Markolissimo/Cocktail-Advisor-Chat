@@ -1,7 +1,7 @@
 # Cocktail-Advisor-Chat
 Develop a Python-based chat application that integrates with a large language model (LLM) to create a Retrieval-Augmented Generation (RAG) system using a vector database. The final application should have a simple interface to demonstrate its functionality.
 
-# STILL IN PROCESS OF CREATION, but if you want to try it out note this:
+# STILL IN PROCESS OF CREATION, but if you want to try it out - note this:
 
 1. Prerequisites
 Ensure you have the following installed on your system:
