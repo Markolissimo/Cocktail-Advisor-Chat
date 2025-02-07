@@ -4,91 +4,68 @@ Develop a Python-based chat application that integrates with a large language mo
 # STILL IN PROCESS OF CREATION, but if you want to try it out note this:
 
 1. Prerequisites
-
 Ensure you have the following installed on your system:
+* Python 3.9+
+* pip (Python package manager)
+* Git
+* Virtual Environment (venv)
 
-Python 3.9+
-
-pip (Python package manager)
-
-Git
-
-Virtual Environment (venv)
-
-2️. Clone the Repository
-
-# Clone the project from GitHub
+2. Clone the Repository
+Clone the project from GitHub:
 git clone https://github.com/your-repo/cocktail-chatbot.git
 cd cocktail-chatbot
 
-3️. Create & Activate a Virtual Environment
-
+3. Create & Activate a Virtual Environment
 Windows (PowerShell):
-
 python -m venv .venv
 .venv\Scripts\Activate
 
 Mac/Linux:
-
 python -m venv .venv
 source .venv/bin/activate
 
-4️. Install Dependencies
-
+4. Install Dependencies
 pip install -r requirements.txt
 
-5️. Set Up Environment Variables
-
+5. Set Up Environment Variables
 Create a .env file in the root directory and add your OpenAI API key:
-
 OPENAI_API_KEY=your-api-key-here
 
-6️. Start the FastAPI Server
-
+6. Start the FastAPI Server
 uvicorn app.main:app --reload
-
 The API will be available at: http://localhost:8000/
-
 The Chat UI will be available at: http://localhost:8000/static/index.html
 
 # API Endpoints
 
 Chat with the AI
-
 curl -X POST "http://localhost:8000/chat/" \
      -H "Content-Type: application/json" \
      -d '{"input_text": "What are my favorite ingredients?", "user_id": "user1"}'
 
 Store User Preferences
-
 curl -X POST "http://localhost:8000/favorites/add" \
      -H "Content-Type: application/json" \
      -d '{"user_id": "user1", "ingredients": ["Rum", "Lemon", "Sugar"]}'
 
 Retrieve User Preferences
-
 curl -X GET "http://localhost:8000/favorites/?user_id=user1"
 
 # Troubleshooting
 
-1️. Chat UI is Not Loading?
-
+1. Chat UI is Not Loading?
 * Make sure you're accessing http://localhost:8000/static/index.html.
 * Ensure app/main.py contains:
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
-*app.mount("/static", StaticFiles(directory="app/static"), name="static")*
-
-2️. API Not Working?
-
+2. API Not Working?
 * Run uvicorn app.main:app --reload and check logs for errors.
 * Ensure .env contains the correct OpenAI API key.
 
-3️. User Preferences Not Saving?
-
+3. User Preferences Not Saving?
 * Run curl commands to check if favorites/add and favorites/ endpoints are storing data correctly.
 
 # Project Structure
-
 📂 cocktail-chatbot/
 ├── 📂 app/
 │   ├── main.py        # FastAPI main app
