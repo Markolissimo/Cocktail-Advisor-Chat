@@ -43,7 +43,7 @@ def generate_response(user_input: str, user_id: str) -> str:
         response += "Here are some recommended cocktails:\n"
 
     for idx, cocktail in enumerate(relevant_cocktails[:5], start=1):
-        response += f"{idx}. {cocktail[1]['name']} 🥃 ({', '.join(cocktail[1]['ingredients'])})\n"
+        response += f"{idx}. {cocktail[1]['name']} ({', '.join(cocktail[1]['ingredients'])})\n"
 
     messages = [
         HumanMessage(content=user_input),

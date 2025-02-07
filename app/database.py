@@ -20,12 +20,12 @@ class VectorDB:
         Returns:
             None
         """
-        print(f"➕ Adding Cocktail: {metadata['name']} | Embedding Dimension: {len(embedding)}")
+        print(f"Adding Cocktail: {metadata['name']} | Embedding Dimension: {len(embedding)}")
     
         self.index.add(np.array([embedding], dtype=np.float32))
         self.data.append((cocktail_id, metadata))
 
-        print(f"✅ FAISS now contains {self.index.ntotal} embeddings.")
+        print(f"FAISS now contains {self.index.ntotal} embeddings.")
 
     def search_similar(self, query_embedding: np.ndarray, top_k: int=5) -> list:
         """Find top-k similar cocktails.
@@ -37,22 +37,22 @@ class VectorDB:
         """
         
         if self.index.ntotal == 0:
-            print("⚠️ FAISS Index is empty! Returning an empty list.")
+            print("FAISS Index is empty! Returning an empty list.")
             return []
     
-        print(f"🔍 Searching FAISS Index with {self.index.ntotal} stored embeddings...")
+        print(f"Searching FAISS Index with {self.index.ntotal} stored embeddings...")
         
         distances, indices = self.index.search(np.array([query_embedding], dtype=np.float32), top_k)
 
         valid_results = []
         for idx in indices[0]:
             if idx == -1:
-                print("⚠️ FAISS returned -1 (no valid match found). Skipping.")
+                print("FAISS returned -1 (no valid match found). Skipping.")
                 continue  # Skip invalid indices
             if 0 <= idx < len(self.data):
                 valid_results.append(self.data[idx])
             else:
-                print(f"⚠️ Invalid FAISS index: {idx}. Skipping.")
+                print(f"Invalid FAISS index: {idx}. Skipping.")
 
         return valid_results
     
